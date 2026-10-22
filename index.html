@@ -96,17 +96,18 @@ async function verifyProduct() {
     } else {
       throw new Error("Respons verifikasi tidak dikenali.");
     }
-  } catch (error) {
-    console.error(error);
+
+} catch (error) {
+    console.error("MADBUBZ verification error:", error);
     statusEl.textContent = "VERIFICATION ERROR";
-    descEl.textContent = "Pemeriksaan belum berhasil.";
+    descEl.textContent = "Pemeriksaan kode gagal.";
     productStatusEl.textContent = "TRY AGAIN";
-    noteEl.textContent = "Coba lagi nanti atau hubungi MADBUBZ.SUPPLY.";
-  }
+    noteEl.textContent = error?.message || String(error) || "Koneksi Supabase gagal.";
+}
+
 }
 
 verifyProduct();
 </script>
-  
 </body>
 </html>
