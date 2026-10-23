@@ -27,16 +27,17 @@
   <p id="note" class="note">Pastikan kode pada label produk cocok dengan kode yang tampil di halaman ini.</p>
   <div class="footer">MADE FOR THE REAL ONES · MADBUBZ.SUPPLY</div>
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const MADBUBZ_SUPABASE_URL = "https://brqabccfjpmjbtuuehxo.supabase.co";
-const MADBUBZ_SUPABASE_KEY = "sb_publishable_XtdLMaP9lNlJCcoeYQlrtw_0YAe2LoC";
+const MADBUBZ_SUPABASE_KEY = "sb_publishable_XtdLMa9pLNlJCcoeYQlrtw_0YAe2LoC";
 
 const madbubzDB = window.supabase.createClient(
   MADBUBZ_SUPABASE_URL,
   MADBUBZ_SUPABASE_KEY
 );
-<script>
+
 const params = new URLSearchParams(location.search);
 const code = (params.get("code") || "").trim().toUpperCase();
 
@@ -48,16 +49,14 @@ const noteEl = document.getElementById("note");
 
 async function verifyProduct() {
   codeEl.textContent = code || "NO CODE";
-  statusEl.textContent = "CHECKING...";
-  descEl.textContent = "Memeriksa kode produk MADBUBZ.";
+  statusEl.textContent = "CHECKING PRODUCT";
   productStatusEl.textContent = "PROCESSING";
-  noteEl.textContent = "Mohon tunggu.";
 
   if (!code) {
     statusEl.textContent = "CODE NOT FOUND";
-    descEl.textContent = "Scan QR pada label produk untuk memeriksa kode.";
+    descEl.textContent = "Kode produk tidak ditemukan.";
     productStatusEl.textContent = "UNVERIFIED";
-    noteEl.textContent = "Kode produk tidak ditemukan.";
+    noteEl.textContent = "Silakan scan QR produk.";
     return;
   }
 
@@ -71,37 +70,36 @@ async function verifyProduct() {
 
     const result = Array.isArray(data) ? data[0] : data;
     const resultStatus = String(
-      result?.status || result?.verify_product || ""
+      typeof result === "string"
+        ? result
+        : result?.status ?? result?.verify_product ?? ""
     ).toUpperCase();
 
     if (resultStatus === "AUTHENTIC") {
       statusEl.textContent = "AUTHENTIC PRODUCT";
-      statusEl.classList.add("ok");
-      descEl.textContent = "Kode produk terdaftar di sistem MADBUBZ.SUPPLY.";
       productStatusEl.textContent = "VERIFIED";
-      noteEl.textContent = "Kode ini berhasil diverifikasi pertama kali.";
+      descEl.textContent = "Kode berhasil diverifikasi.";
+      noteEl.textContent = "Verifikasi berhasil.";
     } else if (resultStatus === "ALREADY_VERIFIED") {
       statusEl.textContent = "CODE ALREADY USED";
-      descEl.textContent = "Kode ini sudah pernah diverifikasi sebelumnya.";
       productStatusEl.textContent = "PREVIOUSLY CHECKED";
-      noteEl.textContent = "Jika ini pembelian baru, hubungi MADBUBZ.SUPPLY untuk pemeriksaan.";
+      descEl.textContent = "Kode ini sudah pernah diperiksa.";
+      noteEl.textContent = "Hubungi MADBUBZ jika produk baru dibeli.";
     } else if (resultStatus === "INVALID") {
       statusEl.textContent = "INVALID CODE";
-      descEl.textContent = "Kode tidak ditemukan dalam database.";
       productStatusEl.textContent = "UNVERIFIED";
-      noteEl.textContent = "Periksa kode atau hubungi MADBUBZ.SUPPLY.";
+      descEl.textContent = "Kode tidak terdaftar.";
+      noteEl.textContent = "Periksa kembali kode produk.";
     } else {
-      throw new Error("Respons verifikasi tidak dikenali.");
+      throw new Error("Respons verifikasi tidak dikenali: " + JSON.stringify(data));
     }
-
-} catch (error) {
-    console.error("MADBUBZ verification error:", error);
+  } catch (error) {
+    console.error("MADBUBZ error:", error);
     statusEl.textContent = "VERIFICATION ERROR";
-    descEl.textContent = "Pemeriksaan kode gagal.";
     productStatusEl.textContent = "TRY AGAIN";
-    noteEl.textContent = error?.message || String(error) || "Koneksi Supabase gagal.";
-}
-
+    descEl.textContent = "Pemeriksaan kode gagal.";
+    noteEl.textContent = error?.message || String(error);
+  }
 }
 
 verifyProduct();
