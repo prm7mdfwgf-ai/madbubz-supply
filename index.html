@@ -1,108 +1,90 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080808">
-<title>MADBUBZ.SUPPLY — Product Check</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MADBUBZ.SUPPLY — Authentic</title>
 <style>
-:root{color-scheme:dark;--bg:#080808;--panel:#111;--line:#333;--muted:#aaa;--white:#f5f5f5}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px}
-.wrap{width:100%;max-width:520px}.brand{font-size:13px;letter-spacing:.28em;font-weight:800;color:#aaa;margin-bottom:34px}.brand span{color:white}.card{border:1px solid var(--line);background:linear-gradient(160deg,#151515,#0b0b0b);padding:28px 22px;border-radius:18px;text-align:center}.mark{width:58px;height:58px;border:1px solid #555;border-radius:50%;display:grid;place-items:center;margin:0 auto 20px;font-weight:900;letter-spacing:-.08em;font-size:18px}.eyebrow{font-size:11px;letter-spacing:.2em;color:#aaa;text-transform:uppercase}.status{font-size:clamp(27px,7vw,39px);font-weight:900;line-height:1.08;margin:13px 0 12px;letter-spacing:-.04em}.status.ok{color:#f5f5f5}.desc{font-size:14px;color:#bdbdbd;line-height:1.6;margin:0 auto;max-width:360px}.rule{height:1px;background:#333;margin:24px 0}.meta{display:flex;justify-content:space-between;gap:12px;text-align:left;font-size:12px;padding:11px 0;border-bottom:1px solid #262626}.meta:last-child{border:0}.meta span:first-child{color:#888}.meta span:last-child{text-align:right;font-weight:700}.note{font-size:11px;color:#777;line-height:1.6;text-align:center;margin-top:18px}.code{font-family:monospace;letter-spacing:.08em}.hidden{display:none}.footer{font-size:10px;letter-spacing:.16em;color:#666;text-align:center;margin-top:28px}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f4f4f4;
+  color: #111;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.card {
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  padding: 35px 24px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+.brand {
+  font-size: 13px;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+.line {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 28px 0;
+}
+.check {
+  width: 76px;
+  height: 76px;
+  border: 3px solid #111;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  margin: auto auto 24px;
+}
+h1 {
+  font-size: 29px;
+  letter-spacing: 1px;
+  margin: 0 0 10px;
+}
+.sub {
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+p {
+  color: #666;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.footer {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #777;
+}
 </style>
 </head>
 <body>
-<main class="wrap">
-  <div class="brand"><span>MADBUBZ</span>.SUPPLY <span style="color:#666">/ PRODUCT CHECK</span></div>
-  <section class="card" aria-live="polite">
-    <div class="mark">MBZ</div>
-    <div class="eyebrow">Product authenticity check</div>
-    <div id="status" class="status">CHECKING PRODUCT</div>
-    <p id="desc" class="desc">Sedang memeriksa kode produk MADBUBZ.</p>
-    <div class="rule"></div>
-    <div class="meta"><span>BRAND</span><span>MADBUBZ.SUPPLY</span></div>
-    <div class="meta"><span>PRODUCT CODE</span><span id="product-code" class="code">—</span></div>
-    <div class="meta"><span>STATUS</span><span id="product-status">WAITING</span></div>
-  </section>
-  <p id="note" class="note">Pastikan kode pada label produk cocok dengan kode yang tampil di halaman ini.</p>
-  <div class="footer">MADE FOR THE REAL ONES · MADBUBZ.SUPPLY</div>
-</main>
+  <main class="card">
+    <div class="brand">MADBUBZ.SUPPLY®</div>
+    <hr class="line">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const MADBUBZ_SUPABASE_URL = "https://brqabccfjpmjbtuuehxo.supabase.co";
-const MADBUBZ_SUPABASE_KEY = "sb_publishable_XtdLMaP9lNlJCcoeYQlrtw_0YAe2LoC";
+    <div class="check">✓</div>
+    <h1>AUTHENTIC</h1>
+    <div class="sub">PRODUCT VERIFIED</div>
 
-const madbubzDB = window.supabase.createClient(
-  MADBUBZ_SUPABASE_URL,
-  MADBUBZ_SUPABASE_KEY
-);
+    <p>
+      OFFICIAL MADBUBZ MERCHANDISE<br>
+      Thank you for supporting our brand.
+    </p>
 
-const params = new URLSearchParams(location.search);
-const code = (params.get("code") || "").trim().toUpperCase();
-
-const statusEl = document.getElementById("status");
-const descEl = document.getElementById("desc");
-const codeEl = document.getElementById("product-code");
-const productStatusEl = document.getElementById("product-status");
-const noteEl = document.getElementById("note");
-
-async function verifyProduct() {
-  codeEl.textContent = code || "NO CODE";
-  statusEl.textContent = "CHECKING PRODUCT";
-  productStatusEl.textContent = "PROCESSING";
-
-  if (!code) {
-    statusEl.textContent = "CODE NOT FOUND";
-    descEl.textContent = "Kode produk tidak ditemukan.";
-    productStatusEl.textContent = "UNVERIFIED";
-    noteEl.textContent = "Silakan scan QR produk.";
-    return;
-  }
-
-  try {
-    const { data, error } = await madbubzDB.rpc(
-      "verify_product",
-      { p_code: code }
-    );
-
-    if (error) throw error;
-
-    const result = Array.isArray(data) ? data[0] : data;
-    const resultStatus = String(
-      typeof result === "string"
-        ? result
-        : result?.status ?? result?.verify_product ?? ""
-    ).toUpperCase();
-
-    if (resultStatus === "AUTHENTIC") {
-      statusEl.textContent = "AUTHENTIC PRODUCT";
-      productStatusEl.textContent = "VERIFIED";
-      descEl.textContent = "Kode berhasil diverifikasi.";
-      noteEl.textContent = "Verifikasi berhasil.";
-    } else if (resultStatus === "ALREADY_VERIFIED") {
-      statusEl.textContent = "CODE ALREADY USED";
-      productStatusEl.textContent = "PREVIOUSLY CHECKED";
-      descEl.textContent = "Kode ini sudah pernah diperiksa.";
-      noteEl.textContent = "Hubungi MADBUBZ jika produk baru dibeli.";
-    } else if (resultStatus === "INVALID") {
-      statusEl.textContent = "INVALID CODE";
-      productStatusEl.textContent = "UNVERIFIED";
-      descEl.textContent = "Kode tidak terdaftar.";
-      noteEl.textContent = "Periksa kembali kode produk.";
-    } else {
-      throw new Error("Respons verifikasi tidak dikenali: " + JSON.stringify(data));
-    }
-  } catch (error) {
-    console.error("MADBUBZ error:", error);
-    statusEl.textContent = "VERIFICATION ERROR";
-    productStatusEl.textContent = "TRY AGAIN";
-    descEl.textContent = "Pemeriksaan kode gagal.";
-    noteEl.textContent = error?.message || String(error);
-  }
-}
-
-verifyProduct();
-</script>
+    <hr class="line">
+    <div class="footer">MADE FOR THE REAL ONES.</div>
+  </main>
 </body>
 </html>
